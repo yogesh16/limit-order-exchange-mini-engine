@@ -26,6 +26,7 @@ class Order extends Model
         'amount',
         'status',
         'filled_at',
+        'created_at',
     ];
 
     /**
