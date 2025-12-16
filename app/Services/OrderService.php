@@ -14,6 +14,10 @@ use Illuminate\Validation\ValidationException;
 
 class OrderService
 {
+    public function __construct(
+        protected MatchingEngineService $matchingEngine
+    ) {}
+
     /**
      * Place a buy order.
      *
@@ -21,7 +25,7 @@ class OrderService
      */
     public function placeBuyOrder(User $user, string $symbol, float $price, float $amount): Order
     {
-        return DB::transaction(function () use ($user, $symbol, $price, $amount) {
+        $order = DB::transaction(function () use ($user, $symbol, $price, $amount) {
             // Lock user for update to prevent race conditions
             $user = User::lockForUpdate()->find($user->id);
 
@@ -45,10 +49,16 @@ class OrderService
                 'price' => $price,
                 'amount' => $amount,
                 'status' => OrderStatus::OPEN,
+                'filled_amount' => 0,
             ]);
 
             return $order;
         });
+
+        // Attempt to match the order
+        $this->matchingEngine->matchOrder($order);
+
+        return $order->fresh();
     }
 
     /**
@@ -58,7 +68,7 @@ class OrderService
      */
     public function placeSellOrder(User $user, string $symbol, float $price, float $amount): Order
     {
-        return DB::transaction(function () use ($user, $symbol, $price, $amount) {
+        $order = DB::transaction(function () use ($user, $symbol, $price, $amount) {
             $symbol = strtoupper($symbol);
 
             // Get or create asset (locked for update)
@@ -91,10 +101,16 @@ class OrderService
                 'price' => $price,
                 'amount' => $amount,
                 'status' => OrderStatus::OPEN,
+                'filled_amount' => 0,
             ]);
 
             return $order;
         });
+
+        // Attempt to match the order
+        $this->matchingEngine->matchOrder($order);
+
+        return $order->fresh();
     }
 
     /**

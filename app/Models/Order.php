@@ -24,6 +24,7 @@ class Order extends Model
         'side',
         'price',
         'amount',
+        'filled_amount',
         'status',
         'filled_at',
         'created_at',
@@ -41,6 +42,7 @@ class Order extends Model
             'status' => OrderStatus::class,
             'price' => 'decimal:8',
             'amount' => 'decimal:8',
+            'filled_amount' => 'decimal:8',
             'filled_at' => 'datetime',
         ];
     }
