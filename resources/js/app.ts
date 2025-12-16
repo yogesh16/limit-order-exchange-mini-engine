@@ -5,8 +5,12 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
 import { initializeTheme } from './composables/useAppearance';
+import echo from './echo';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+
+// Make Echo globally available
+window.Echo = echo;
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
