@@ -24,4 +24,14 @@ export default defineConfig({
             },
         }),
     ],
+    server: {
+        host: 'localhost',
+        port: 5173,
+        strictPort: true,
+        cors: true,
+        hmr: {
+            host: 'localhost',
+        },
+        origin: 'http://localhost:5173',
+    },
 });

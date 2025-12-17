@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Profile routes
+Route::get('/profile', [ProfileController::class, 'show'])->middleware('auth:sanctum')->name('profile.show');
+
 // Order routes
 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::post('/orders', [OrderController::class, 'store'])->middleware('auth:sanctum')->name('orders.store');
 Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])->middleware('auth:sanctum')->name('orders.cancel');
+
