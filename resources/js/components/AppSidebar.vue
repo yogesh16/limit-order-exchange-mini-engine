@@ -38,7 +38,7 @@ const footerNavItems: NavItem[] = [
     },
     {
         title: 'Documentation',
-        href: 'https://github.com/yogesh16/limit-order-exchange-mini-engine',
+        href: 'https://github.com/yogesh16/limit-order-exchange-mini-engine#limit-order-exchange-mini-engine',
         icon: BookOpen,
     },
 ];
