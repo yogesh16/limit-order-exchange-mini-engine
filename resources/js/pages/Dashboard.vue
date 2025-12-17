@@ -4,19 +4,10 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Head, usePage, Link } from '@inertiajs/vue3';
-import { 
-    WalletOverview, 
-    LimitOrderForm, 
-    OrdersTable, 
-    Orderbook,
-    BalanceDisplay,
-    OrderStatusBadge
-} from '@/components/trading';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useProfile } from '@/composables/useProfile';
-import { useOrders } from '@/composables/useOrders';
 import { useEchoListeners } from '@/composables/useEchoListeners';
 import type { OrderMatchedPayload } from '@/types/trading';
 
@@ -32,7 +23,6 @@ const user = page.props.auth?.user as { id: number; name: string } | undefined;
 
 // Profile composable
 const { 
-    profile, 
     balance, 
     assets, 
     fetchProfile, 
@@ -42,10 +32,6 @@ const {
 const userOrders = ref<any[]>([]);
 const loadingOrders = ref(false);
 const orderbookRef = ref<any>(null);
-
-const { cancelOrder } = useOrders();
-
-const activeSymbol = ref('BTC');
 
 // Notification state
 const notification = ref<{ type: 'success' | 'info'; message: string } | null>(null);

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useOrders } from '@/composables/useOrders';
@@ -8,7 +8,7 @@ const props = defineProps<{
     symbol: string;
 }>();
 
-const { orders, loading, fetchOrderbook, buyOrders, sellOrders } = useOrders();
+const { loading, fetchOrderbook, buyOrders, sellOrders } = useOrders();
 
 // Aggregate orders by price level
 interface PriceLevel {

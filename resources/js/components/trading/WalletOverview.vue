@@ -3,14 +3,12 @@ import { onMounted, onUnmounted, computed } from 'vue';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useProfile } from '@/composables/useProfile';
-import type { Asset } from '@/types/trading';
 
 const props = defineProps<{
     userId?: number;
 }>();
 
 const { 
-    profile, 
     loading, 
     balance, 
     assets, 

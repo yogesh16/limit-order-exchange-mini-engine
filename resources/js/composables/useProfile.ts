@@ -1,5 +1,5 @@
-import { ref, computed, onMounted } from 'vue';
-import type { Profile, Asset, Order, OrderMatchedPayload } from '@/types/trading';
+import { ref, computed } from 'vue';
+import type { Profile, Asset, OrderMatchedPayload } from '@/types/trading';
 import echo from '@/echo';
 
 /**

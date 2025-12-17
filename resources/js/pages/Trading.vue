@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from 'vue';
+import { ref, onMounted } from 'vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, usePage } from '@inertiajs/vue3';
@@ -24,8 +24,7 @@ const page = usePage();
 const user = page.props.auth?.user as { id: number; name: string } | undefined;
 
 // Profile composable
-const { 
-    profile, 
+const {  
     balance, 
     assets, 
     fetchProfile, 
@@ -46,7 +45,7 @@ const activeSymbol = ref('BTC');
 const notification = ref<{ type: 'success' | 'info'; message: string; trade?: any } | null>(null);
 
 // Real-time Echo listeners with callbacks
-const { isConnected, lastEvent, recentTrades } = useEchoListeners(user?.id, {
+const { isConnected, recentTrades } = useEchoListeners(user?.id, {
     onOrderMatched: async (payload: OrderMatchedPayload) => {
         // Show notification
         const role = payload.buyer_id === user?.id ? 'bought' : 'sold';
